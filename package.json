@@ -1,0 +1,37 @@
+{
+  "name": "babblen",
+  "version": "1.0.0",
+  "description": "Dev-friendly Messaging App",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "prettify": "prettier --config .prettierrc.json --write ./**/*.ts",
+    "dev": "npm run prettify && ts-node-dev ./index.ts --respawn --transpileOnly",
+    "prod": "npm run prettify && tsc && node ./build/index.js"
+  },
+  "author": "Ellice Acayan <@eacayan>, Joimee Cajandab, <@oieeaaaa>, Joshua Cerbito <@joshuacerbito>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.11",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "https-localhost": "^4.6.4",
+    "passport": "^0.4.1",
+    "passport-github2": "^0.1.12",
+    "prettier": "2.2.1",
+    "ts-node-dev": "^1.1.1",
+    "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0"
+  }
+}
