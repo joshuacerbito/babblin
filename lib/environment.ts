@@ -1,10 +1,9 @@
+import { TypeEnv } from './typedefs';
 require('dotenv').config();
 
-import { EnvConfig } from './typedefs';
-
-const env: EnvConfig = {
+const env: TypeEnv = {
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID || '',
-  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET || '',
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET || ''
 };
 
 export = env;

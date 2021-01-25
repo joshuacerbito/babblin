@@ -1,19 +1,21 @@
 // Load dependencies
-require('./lib/typedefs');
+import { Server } from 'https';
+import { Application } from 'express';
 import express = require('express');
 import ssl = require('./lib/ssl');
 const https = require('https');
 
 // Create a new express application instance
-const app: express.Application = express();
+const app: Application = express();
 const { key, cert } = ssl;
-const server = https.createServer({ key, cert }, app);
+const server: Server = https.createServer({ key, cert }, app);
 
 // Load environment variables
 import env = require('./lib/environment');
 
 // Setup routes
-require('./lib/routes')(app, env);
+require('./lib/routes/web')(app, env);
+require('./lib/routes/auth')(app, env);
 
 // Add server console logs/tests
 require('./lib/console')(server);
