@@ -94,6 +94,10 @@ module.exports = (app: Application, env: TypeEnv) => {
    */
   app.get('/secret', ensureAuthenticated, (req: any, res) => {
     console.log('REQ.USER', req.user);
-    res.send('<h2>Secret Page, Put Chat function here.</h2>');
+    const { profile } = req.user;
+    const { displayName, username, profileUrl } = profile;
+    res.send(
+      `<h2>Hello, ${displayName} (<a href="${profileUrl}">@${username}</a>).</h2><section>FE for chat goes here.</section>`
+    );
   });
 };
