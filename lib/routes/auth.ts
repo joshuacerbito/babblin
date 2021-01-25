@@ -21,11 +21,11 @@ module.exports = (app: Application, env: TypeEnv) => {
     res.redirect('/login');
   };
 
-  passport.serializeUser(function (user, done: Function) {
+  passport.serializeUser((user, done: Function) => {
     done(null, user);
   });
 
-  passport.deserializeUser(function (obj: any, done: Function) {
+  passport.deserializeUser((obj: any, done: Function) => {
     done(null, obj);
   });
 
@@ -36,7 +36,7 @@ module.exports = (app: Application, env: TypeEnv) => {
         clientSecret: GITHUB_CLIENT_SECRET,
         callbackURL: GITHUB_CALLBACK_URL
       },
-      function (accessToken: string, refreshToken: string, profile: Profile, done) {
+      (accessToken: string, refreshToken: string, profile: Profile, done) => {
         // asynchronous verification, for effect...
         // console.log({ accessToken, refreshToken, profile });
 
@@ -75,7 +75,7 @@ module.exports = (app: Application, env: TypeEnv) => {
     passport.authenticate('github', {
       scope: ['repo:status'] // Note the scope here
     }),
-    function (req: Request, res: Response) {}
+    (req: Request, res: Response) => {}
   );
 
   app.get(
@@ -83,7 +83,7 @@ module.exports = (app: Application, env: TypeEnv) => {
     passport.authenticate('github', {
       failureRedirect: '/login'
     }),
-    function (req: Request, res: Response) {
+    (req: Request, res: Response) => {
       console.log('REDIRECTED');
       res.redirect('/secret');
     }
@@ -92,12 +92,17 @@ module.exports = (app: Application, env: TypeEnv) => {
   /**
    * Authenticated Routes
    */
-  app.get('/secret', ensureAuthenticated, (req: any, res) => {
-    console.log('REQ.USER', req.user);
-    const { profile } = req.user;
-    const { displayName, username, profileUrl } = profile;
-    res.send(
-      `<h2>Hello, ${displayName} (<a href="${profileUrl}">@${username}</a>).</h2><section>FE for chat goes here.</section>`
-    );
-  });
+  app.get(
+    '/secret',
+    ensureAuthenticated,
+    (req: any, res: Response) => {
+      console.log('REQ.USER', req.user);
+      const { profile } = req.user;
+      const { displayName, username, profileUrl } = profile;
+      res.send(`
+        <h2>Hello, ${displayName} (<a href="${profileUrl}">@${username}</a>)!</h2>
+        <section>FE for chat goes here.</section>
+      `);
+    }
+  );
 };
